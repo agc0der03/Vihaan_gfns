@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import Header from './header';
 import Footer from './footer';
 
@@ -7,11 +8,31 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await axios.post('http://localhost:5000/api/users/login', {
+        username: email,  // backend expects 'username', you're sending email
+        password
+      });
+
+      console.log(res.data);
+      alert('Login successful');
+
+      // Optionally save JWT to localStorage
+      localStorage.setItem('token', res.data.token);
+    } catch (err) {
+      console.error(err.response?.data || err.message);
+      alert('Login failed');
+    }
+  };
+
   return (
     <>
       <Header />
       <div style={styles.container}>
-        <form style={styles.form}>
+        <form style={styles.form} onSubmit={handleLogin}>
           <h2 style={styles.title}>Login to Real Estate Tokenization</h2>
           <div style={styles.inputGroup}>
             <label htmlFor="email">Email:</label>
