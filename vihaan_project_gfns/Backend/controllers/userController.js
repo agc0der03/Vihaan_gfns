@@ -21,6 +21,7 @@ export const loginUser = async (req, res) => {
 
   const isMatch = await bcrypt.compare(password, user.password);
   if (!isMatch) return res.status(401).json({ message: 'Wrong password' });
+  console.log("user_created")
 
   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
   res.json({ token });
