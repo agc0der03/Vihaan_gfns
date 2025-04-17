@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Header from './header';
 import Footer from './footer';
@@ -6,7 +5,7 @@ import axios from 'axios';
 
 const Signup = () => {
   const [fullname, setFullname] = useState('');
-  const [email, setsEmail] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -20,9 +19,9 @@ const Signup = () => {
 
     try {
       const response = await axios.post('http://localhost:5000/api/users/register', {
-        username: email, // email as username in backend
+        username: email, // email as username
         password,
-        fullname, // optional: backend can choose to store it
+        fullname,
       });
 
       console.log(response.data);
@@ -40,51 +39,56 @@ const Signup = () => {
       <div style={styles.container}>
         <form style={styles.form} onSubmit={handleSubmit}>
           <h2 style={styles.title}>Sign Up for Real Estate Tokenization</h2>
+          
           <div style={styles.inputGroup}>
             <label htmlFor="fullname">Full Name:</label>
             <input
               type="text"
               id="fullname"
               value={fullname}
-              onChange={e => setFullname(e.target.value)}
+              onChange={(e) => setFullname(e.target.value)}
               style={styles.input}
               autoFocus
               required
             />
           </div>
+
           <div style={styles.inputGroup}>
             <label htmlFor="email">Email:</label>
             <input
               type="email"
               id="email"
               value={email}
-              onChange={e => setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
               style={styles.input}
               required
             />
           </div>
+
           <div style={styles.inputGroup}>
             <label htmlFor="password">Password:</label>
             <input
               type="password"
               id="password"
               value={password}
-              onChange={e => setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
               style={styles.input}
               required
             />
           </div>
+
           <div style={styles.inputGroup}>
             <label htmlFor="confirmPassword">Confirm Password:</label>
             <input
               type="password"
               id="confirmPassword"
               value={confirmPassword}
-              onChange={e => setConfirmPassword(e.target.value)}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               style={styles.input}
               required
             />
           </div>
+
           <button type="submit" style={styles.button}>
             Sign Up
           </button>
